@@ -4,7 +4,7 @@ This is a classic Asteroids game implemented in Python using the Pygame library.
 
 ## How to Play
 
-- Use the arrow keys to move the player.
+- Use WASD to move the player.
 - Press the spacebar to shoot.
 - Avoid colliding with asteroids.
 - Collect power-ups to enhance your abilities.
