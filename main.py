@@ -49,6 +49,13 @@ def main():
             if player.collision(obj):
                 print("Game Over!")
                 return
+        for obj in asteroids:
+            for shot in shots_group:
+                if shot.collision(obj):
+                    obj.split()
+                    shot.kill()
+                    break
+
 
 
 if __name__ == "__main__":
