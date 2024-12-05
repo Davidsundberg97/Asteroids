@@ -4,6 +4,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from powerup import PowerUp
 
 
 def main():
@@ -15,10 +16,12 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots_group = pygame.sprite.Group()
+    powerups = pygame.sprite.Group()
 
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
     Shot.containers = (shots_group, updatable, drawable)
+    PowerUp.containers = (powerups, updatable, drawable)
     asteroid_field = AsteroidField()
 
     Player.containers = (updatable, drawable)
@@ -40,6 +43,11 @@ def main():
         for obj in drawable:
             obj.draw(screen)
 
+        # Display the player's score
+        font = pygame.font.Font(None, 36)
+        score_text = font.render(f"Score: {player.score}", True, (255, 255, 255))
+        screen.blit(score_text, (10, 10))
+
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
@@ -54,8 +62,13 @@ def main():
                 if shot.collision(obj):
                     obj.split()
                     shot.kill()
+                    player.score += 10  # Increment score when an asteroid is destroyed
                     break
 
+        for powerup in powerups:
+            if player.collision(powerup):
+                powerup.kill()
+                player.shot_radius += 2  # Increase player's shot radius when power-up is collected
 
 
 if __name__ == "__main__":

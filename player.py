@@ -8,6 +8,8 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.timer = 0
+        self.score = 0  # Initialize score attribute
+        self.shot_radius = SHOT_RADIUS  # Initialize shot radius
     
     # in the player class
     def triangle(self):
@@ -46,7 +48,7 @@ class Player(CircleShape):
         if self.timer > 0:
             return
         else:
-            shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
+            shot = Shot(self.position.x, self.position.y, self.shot_radius)
             shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
             self.timer = PLAYER_SHOOT_COOLDOWN
-    
+            shot.score = self.score  # Link shot score to player score

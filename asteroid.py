@@ -2,6 +2,8 @@ from circleshape import CircleShape
 from constants import *
 import pygame
 import random
+from powerup import PowerUp  # Import PowerUp class
+
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
@@ -29,3 +31,7 @@ class Asteroid(CircleShape):
         asteroid.velocity = a * 1.2
         asteroid = Asteroid(self.position.x, self.position.y, new_radius)
         asteroid.velocity = b * 1.2
+
+        # Chance to drop a power-up
+        if random.random() < POWER_UP_DROP_CHANCE:
+            PowerUp(self.position.x, self.position.y)
