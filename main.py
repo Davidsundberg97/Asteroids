@@ -55,8 +55,9 @@ def main():
         
         for obj in asteroids:
             if player.collision(obj):
-                print("Game Over!")
-                return
+                if player.handle_collision(obj):
+                    return  # End game if player dies
+
         for obj in asteroids:
             for shot in shots_group:
                 if shot.collision(obj):
@@ -68,7 +69,10 @@ def main():
         for powerup in powerups:
             if player.collision(powerup):
                 powerup.kill()
-                player.shot_radius += 2  # Increase player's shot radius when power-up is collected
+                if powerup.type == "shot":
+                    player.shot_radius += 2  # Increase player's shot radius when power-up is collected
+                elif powerup.type == "shield":
+                    player.shield = SHIELD_DURATION  # Activate shield
 
 
 if __name__ == "__main__":

@@ -34,4 +34,5 @@ class Asteroid(CircleShape):
 
         # Chance to drop a power-up
         if random.random() < POWER_UP_DROP_CHANCE:
-            PowerUp(self.position.x, self.position.y)
+            powerup_type = "shield" if random.random() < 0.5 else "shot"
+            PowerUp(self.position.x, self.position.y, powerup_type)  # Pass powerup_type argument
